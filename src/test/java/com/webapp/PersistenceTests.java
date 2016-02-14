@@ -13,7 +13,7 @@ import java.util.Arrays;
 import static org.hamcrest.CoreMatchers.instanceOf;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringApp01Application.class)
+@SpringApplicationConfiguration(classes = SubscriptionWebServiceApplication.class)
 @Transactional
 public class PersistenceTests {
 
