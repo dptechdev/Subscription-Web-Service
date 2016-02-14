@@ -1,7 +1,6 @@
 package com.webapp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -19,7 +18,6 @@ public class Subscription {
 
     @Column(name="service_code")
     @NotNull
-    @Max(6)
     private Integer serviceCode;
 
     public Subscription() {}

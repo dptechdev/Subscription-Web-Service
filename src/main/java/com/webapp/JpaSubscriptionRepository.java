@@ -8,5 +8,6 @@ public interface JpaSubscriptionRepository extends JpaRepository<Subscription, I
 
     Subscription findByServiceCode(int serviceCode);
     Subscription findBySubscriptionId(int subscriptionId);
+    Subscription findByUser(String subscriberName);
 
 }

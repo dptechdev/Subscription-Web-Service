@@ -14,6 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SpringApp01Application.class)
 @WebAppConfiguration
@@ -39,6 +40,13 @@ public class WebTests {
 	public void restHtmlClient() throws Exception {
 		mockMvc.perform(get("/client").contentType("text/html; charset=utf-8"))
 				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void testSubscriptionControllerListAllSubscriptions() throws Exception {
+		mockMvc.perform(get("/subscription/list"))
+				.andExpect(status().isOk());
+
 	}
 
 

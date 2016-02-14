@@ -8,6 +8,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -84,6 +86,21 @@ public class PersistenceTests {
     }
 
     @Test
+    public void testJpaRepositorySaveSubscription() {
+        Subscription newSubscription = new Subscription();
+        newSubscription.setUser("Molly");
+        newSubscription.setServiceCode(111111);
+        jpaSubscriptionRepository.save(newSubscription);
+    }
+
+    @Test
+    public void testJpaRepositorySaveMultipleSubscriptions() {
+        Subscription s1 = new Subscription("Mary", 555555);
+        Subscription s2 = new Subscription("Derek", 666666);
+        jpaSubscriptionRepository.save(Arrays.asList(s1, s2));
+    }
+
+    @Test
     public void testJpaRepositoryListAllSubscriptions() {
        Assert.assertTrue(jpaSubscriptionRepository.findAll() != null);
        jpaSubscriptionRepository.findAll().forEach((sub) -> System.out.println(sub));
@@ -91,8 +108,24 @@ public class PersistenceTests {
 
     @Test
     public void testJpaRepositoryFindBySubscriptionId() {
-        Subscription subscriptionToFindBySubscriptionId = jpaSubscriptionRepository.findBySubscriptionId(1);
+        int subscriptionId = 1;
+        Subscription subscriptionToFindBySubscriptionId = jpaSubscriptionRepository.findBySubscriptionId(subscriptionId);
         Assert.assertEquals("Derek", subscriptionToFindBySubscriptionId.getUser());
+    }
+
+    @Test
+    public void testJpaRepositoryFindBySubscriptionServiceCode() {
+        int subscriptionServiceCode = 444444;
+        Subscription subscriptionToFindBySubscriptionServiceCode = jpaSubscriptionRepository.findByServiceCode(subscriptionServiceCode);
+        Assert.assertEquals("Derek", subscriptionToFindBySubscriptionServiceCode.getUser());
+    }
+
+    @Test
+    public void testJpaRepositoryFindBySubscriberUserName() {
+        String subscriberName = "Derek";
+        Subscription subscriptionToFindBySubscriptionUserName = jpaSubscriptionRepository.findByUser(subscriberName);
+        Assert.assertNotNull(subscriptionToFindBySubscriptionUserName);
+        Assert.assertEquals(subscriberName, subscriptionToFindBySubscriptionUserName.getUser());
     }
 
 
